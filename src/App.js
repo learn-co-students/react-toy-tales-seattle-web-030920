@@ -11,13 +11,35 @@ import data from './data'
 class App extends React.Component{
 
   state = {
-    display: false
+    display: false,
+    toys: data
   }
 
   handleClick = () => {
     let newBoolean = !this.state.display
     this.setState({
       display: newBoolean
+      
+    })
+  }
+
+  handleLike = (likedToy) => {
+    this.setState(prev => {
+      return {
+        toys: prev.toys.filter(toy => {
+          return toy.id !== likedToy.id ? toy : {...toy, likes: toy.likes +=1}
+        })
+      }
+    })
+  }
+
+  handleDonate = (donatedToy) => {
+    this.setState(prev => {
+      return {
+        toys: prev.toys.filter(toy => {
+          return toy.id !== donatedToy.id ? toy : null
+        })
+      }
     })
   }
 
@@ -27,14 +49,14 @@ class App extends React.Component{
         <Header/>
         { this.state.display
             ?
-          <ToyForm/>
+          <ToyForm />
             :
           null
         }
         <div className="buttonContainer">
           <button onClick={this.handleClick}> Add a Toy </button>
         </div>
-        <ToyContainer/>
+        <ToyContainer allToys={this.state.toys} donate={this.handleDonate} like={this.handleLike}/>
       </>
     );
   }
