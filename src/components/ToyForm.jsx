@@ -5,9 +5,6 @@ const INITIAL_STATE = {
   image:''
 }
 class ToyForm extends Component {
-  // deconstruct props and how?--more so my props "onAddToy, onUpdateForm"
-  // const { onAddToy } = this.props 
-  // const { name, image } = this.state
 
   state = INITIAL_STATE
 
